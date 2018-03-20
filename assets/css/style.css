@@ -1,0 +1,10 @@
+
+#character{
+    width:170px;
+    height: 250px;
+}
+.container_oponent, .container_choose{
+    width:1170px;
+    height:300px;
+    margin:10px;
+}
