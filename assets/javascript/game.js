@@ -2,42 +2,138 @@ window.onload = function () {//window loads
 
     var health_chosen; //health of all characters
     var health_oponent;
-    var attack_power;
-    var counter;
-    var count;
+    var attack_power = 8;
+    var current_attack_power;
+    var counter_attack;
+    var count = 0;
     var isCharacterChosen = false;
+    var clicks = 0;
     var isOponentChosen = false;
+    var wins = 0;
+    var characters = [
+        goku = {
+            name: "Goku",
+            image: "assets/images/goku.png",
+            attack: 8,
+            counter: 25,
+            health: 100,
+            chosen: 1
+        },
+        vegeta = {
+            name: "Vegeta",
+            image: "assets/images/vegeta.png",
+            attack: 8,
+            counter: 25,
+            health: 120,
+            chosen: 2
+        },
+        frieza = {
+            name: "Frieza",
+            image: "assets/images/frieza.png",
+            attack: 8,
+            counter: 25,
+            health: 150,
+            chosen: 3
+        },
+        cell = {
+            name: "Cell",
+            image: "assets/images/Cell.png",
+            attack: 8,
+            counter: 25,
+            health: 180,
+            chosen: 4
+        }
+    ]
+
+    for (var i = 0; i < characters.length; i++) {
+        var newButton = $("<button>")
+        newButton.addClass("character_choose");
+        newButton.val(characters[i].health);
+        var newDiv = $("<div>");
+        newDiv.addClass(characters[i].name);
+        newDiv.text(characters[i].name);
+        var newImg = $("<img height = 200px width = 170px>");
+        newImg.attr("src", characters[i].image);
+        var newFooter = $("<footer>");
+        newFooter.text("Health :");
+        var newSpan = $("<span class = life>");
+        newSpan.addClass(characters[i].name)//use this to retrieve the health value
+        newSpan.text(characters[i].health);
+        $(newButton).appendTo("#container_char");
+        $(newDiv).appendTo(newButton);
+        $(newImg).appendTo(newButton);
+        $(newSpan).appendTo(newFooter);
+        $(newFooter).appendTo(newButton);
+    }
 
     function restart() {
-
     }
-
-    $(".Character_1").on("click", function () {
-        isCharacterChosen = true;
-        $(".Character_2").appendTo(".container_choose"), $(".Character_3").appendTo(".container_choose"), $(".Character_4").appendTo(".container_choose");
-        if(isCharacterChosen == true){
-            $(".Character_2").on("click", function () {
-                $(".Character_3").appendTo(".container_oponent"), $(".Character_4").appendTo(".container_oponent");
-            }), $(".Character_3").on("click", function () {
-                $(".Character_2").appendTo(".container_oponent"), $(".Character_4").appendTo(".container_oponent");
-            }),$(".Character_4").on("click", function () {
-                $(".Character_2").appendTo(".container_oponent"), $(".Character_3").appendTo(".container_oponent");
-            });
+    function gameover() {
+        alert("YOU LOOSE!!");
+    }
+    function next() {
+        isOponentChosen = false;
+        $("#container_oponent").empty();
+        wins++;
+        if (wins <= 1) {
+            current_attack_power = 8 * count;
+        } else {
+            current_attack_power = attack_power
         }
-    });
-    function attack(){
-        attack_power = 8*count;
-        counter = 25;
-        health_chosen = $("Character_1").val();
-        health_chosen = health_chosen - counter;
-        console.log(health_chosen);
-        $(".health_1").innerHTML(health_chosen);
-        health_oponent = $("Character_2").val();
-        health_oponent = health_oponent - attack_power;
-        console.log(health_oponent);
-    }
-    $(".attack").on("click", function(){
+        console.log("current attack power:" + attack_power)
         count = 0;
+    }
+
+    $(".character_choose").on("click", function () {
+        if (isCharacterChosen === false) {
+            $(".character_choose").appendTo("#container_choose");
+            $(".character_choose").addClass("character_enemy");
+            $(".character_choose").removeClass("character_choose");
+
+            $(this).appendTo("#container_char");
+            $(this).removeClass();
+            $(this).addClass("character_chosen");
+
+            isCharacterChosen = true;
+        }
+        $(".character_enemy").on("click", function () {
+            if (isOponentChosen === false) {
+                $(this).appendTo("#container_oponent");
+                $(this).removeClass();
+                $(this).addClass("character_oponent");
+                isOponentChosen = true;
+            }
+        })
+    })
+
+    function attack() {
+        console.log("counter :" + count);
+        health_oponent = $(".character_oponent").val();
+        for (var k = 1; k <= count; k++) {
+            if (wins == 0) {
+                attack_power = 8 * k; //store this value to access later
+                health_oponent = health_oponent - attack_power;
+            } else {
+                attack_power = current_attack_power + 8 * k;
+                health_oponent = health_oponent - attack_power;
+            }
+        }
+
+        console.log("current health of oponent:" + health_oponent);
+        counter = 10 * count;
+        health_chosen = $(".character_chosen").val();
+        console.log("health chosen:" + health_chosen);
+        health_chosen = health_chosen - counter;
+        console.log("health after counter:" + health_chosen);
+
+        if (health_chosen <= 0) {
+            gameover();
+        } else if (health_oponent <= 0) {
+            alert("NEXT CHARACTER");
+            next();
+        }
+    }
+    $(".attack").on("click", function () {
         count++;
         attack();
     })

@@ -1,10 +1,14 @@
 
-#character{
+#choose_char{
     width:170px;
     height: 250px;
 }
-.container_oponent, .container_choose{
+button{
+    margin-left:30px;
+    margin-right:30px;
+}
+#container_oponent, #container_choose, #container_char{
     width:1170px;
-    height:300px;
+    height:260px;
     margin:10px;
 }
