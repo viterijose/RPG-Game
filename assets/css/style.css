@@ -1,4 +1,6 @@
-
+html, body{
+background: url("https://images7.alphacoders.com/677/thumb-1920-677266.png") no-repeat center center fixed;
+}
 #choose_char{
     width:170px;
     height: 250px;
@@ -11,4 +13,34 @@ button{
     width:1170px;
     height:260px;
     margin:10px;
+}
+.character_choose{
+    background: url("https://cdn3.iconfinder.com/data/icons/ching-zodiac/128/zdragon-01.png") no-repeat  center;
+    border:0;
+}
+.character_chosen{
+    background: url("https://cdn3.iconfinder.com/data/icons/ching-zodiac/128/zdragon-01.png") no-repeat  center;
+    border:0;
+}
+.character_enemy{
+    background: url("https://cdn3.iconfinder.com/data/icons/ching-zodiac/128/ztiger-01.png") no-repeat  center;
+    border:0;
+}
+.character_oponent{
+    background: url("https://cdn3.iconfinder.com/data/icons/ching-zodiac/128/zsnake-01.png") no-repeat  center;
+    border:0;
+}
+button:hover{
+    background-color: rgb(202, 143, 16);
+}
+div{
+    font-family: 'Permanent Marker', cursive;
+    font-size: 105%;
+}
+span, footer{
+    font-family: 'Slabo 27px', serif;
+    font-size: 105%;
+}
+footer{
+    background: #299c29;
 }

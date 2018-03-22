@@ -17,7 +17,7 @@ window.onload = function () {//window loads
             attack: 8,
             counter: 25,
             health: 100,
-            chosen: 1
+            chosen: "1"
         },
         vegeta = {
             name: "Vegeta",
@@ -25,7 +25,7 @@ window.onload = function () {//window loads
             attack: 8,
             counter: 25,
             health: 120,
-            chosen: 2
+            chosen: "2"
         },
         frieza = {
             name: "Frieza",
@@ -33,7 +33,7 @@ window.onload = function () {//window loads
             attack: 8,
             counter: 25,
             health: 150,
-            chosen: 3
+            chosen: "3"
         },
         cell = {
             name: "Cell",
@@ -41,7 +41,7 @@ window.onload = function () {//window loads
             attack: 8,
             counter: 25,
             health: 180,
-            chosen: 4
+            chosen: "4"
         }
     ]
 
@@ -50,15 +50,15 @@ window.onload = function () {//window loads
         newButton.addClass("character_choose");
         newButton.val(characters[i].health);
         var newDiv = $("<div>");
-        newDiv.addClass(characters[i].name);
         newDiv.text(characters[i].name);
         var newImg = $("<img height = 200px width = 170px>");
         newImg.attr("src", characters[i].image);
         var newFooter = $("<footer>");
         newFooter.text("Health :");
-        var newSpan = $("<span class = life>");
-        newSpan.addClass(characters[i].name)//use this to retrieve the health value
+        var newSpan = $("<span>");
+        newSpan.addClass(characters[i].chosen);
         newSpan.text(characters[i].health);
+
         $(newButton).appendTo("#container_char");
         $(newDiv).appendTo(newButton);
         $(newImg).appendTo(newButton);
@@ -75,6 +75,12 @@ window.onload = function () {//window loads
         isOponentChosen = false;
         $("#container_oponent").empty();
         wins++;
+        if(wins == 1){ //get character image, erase src, put new src for transformation
+            $(".character_chosen").find("img").attr("src", "https://pre00.deviantart.net/502c/th/pre/f/2017/039/7/9/super_saiyan_goku_2_by_brusselthesaiyan-daydfdy.png");//make for every character
+        }
+        if(wins == 2){
+            $(".character_chosen").find("img").attr("src", "https://vignette.wikia.nocookie.net/vsbattles/images/4/48/Goku_ssj2_by_spongeboss-d3np2hm.png/revision/latest?cb=20150428060108");
+        }
         if (wins <= 1) {
             current_attack_power = 8 * count;
         } else {
@@ -93,7 +99,9 @@ window.onload = function () {//window loads
             $(this).appendTo("#container_char");
             $(this).removeClass();
             $(this).addClass("character_chosen");
-
+            $(this).find("span").removeClass();
+            $(this).find("span").addClass("Chosen");
+            health_chosen = $(".character_chosen").val();
             isCharacterChosen = true;
         }
         $(".character_enemy").on("click", function () {
@@ -101,6 +109,9 @@ window.onload = function () {//window loads
                 $(this).appendTo("#container_oponent");
                 $(this).removeClass();
                 $(this).addClass("character_oponent");
+                $(this).find("span").removeClass();
+                $(this).find("span").addClass("Oponent");
+                
                 isOponentChosen = true;
             }
         })
@@ -109,22 +120,23 @@ window.onload = function () {//window loads
     function attack() {
         console.log("counter :" + count);
         health_oponent = $(".character_oponent").val();
+
         for (var k = 1; k <= count; k++) {
             if (wins == 0) {
-                attack_power = 8 * k; //store this value to access later
+                attack_power = 8 * k; 
                 health_oponent = health_oponent - attack_power;
             } else {
                 attack_power = current_attack_power + 8 * k;
                 health_oponent = health_oponent - attack_power;
             }
         }
-
         console.log("current health of oponent:" + health_oponent);
-        counter = 10 * count;
-        health_chosen = $(".character_chosen").val();
+        counter = 10 ;
         console.log("health chosen:" + health_chosen);
         health_chosen = health_chosen - counter;
         console.log("health after counter:" + health_chosen);
+        $(".Chosen").text(health_chosen);
+        $(".Oponent").text(health_oponent);
 
         if (health_chosen <= 0) {
             gameover();
@@ -132,10 +144,15 @@ window.onload = function () {//window loads
             alert("NEXT CHARACTER");
             next();
         }
+        if (wins == 3){
+            alert("YOU WON!!");
+        }
     }
     $(".attack").on("click", function () {
+        if(isOponentChosen===true){
         count++;
         attack();
+        }
     })
 
 
