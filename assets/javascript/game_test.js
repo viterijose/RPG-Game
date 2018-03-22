@@ -7,24 +7,42 @@ window.onload = function () {//window loads
     var count=0;
     var isCharacterChosen = false;
     var isOponentChosen = false;
+    var characters = [
+        goku = {
+            health : 100,
+            counter : 10,
+            img :  "assets/images/goku.png",
+        },
+        vegeta = {
+            health : 120,
+            counter : 15,
+            img :  src = "assets/images/vegeta.png",
+        },
+        frieza = {
+            health : 150,
+            counter : 20,
+            img :  src = "assets/images/frieza.png",
+        },
+        cell = {
+            health : 180,
+            counter : 25,
+            img :  src = "assets/images/cell.png",
+        }
+    ]
 
     function restart() {
 
     }
 
-    $(".Character_1").on("click", function () {
-        isCharacterChosen = true;
-        $(".Character_2").appendTo(".container_choose"), $(".Character_3").appendTo(".container_choose"), $(".Character_4").appendTo(".container_choose");
-        if(isCharacterChosen == true){
-            $(".Character_2").on("click", function () {
-                $(".Character_3").appendTo(".container_oponent"), $(".Character_4").appendTo(".container_oponent");
-            }), $(".Character_3").on("click", function () {
-                $(".Character_2").appendTo(".container_oponent"), $(".Character_4").appendTo(".container_oponent");
-            }),$(".Character_4").on("click", function () {
-                $(".Character_2").appendTo(".container_oponent"), $(".Character_3").appendTo(".container_oponent");
-            });
+    $(".Character").on("click", function(){
+        console.log("Length of object characters :" + characters.length);
+        console.log(characters.goku);
+        for(var i = 0 ; i < characters.length ; i ++){
+
         }
-    });
+
+    })
+
     function attack(){
         attack_power = 8*count;
         console.log("attack power :" + attack_power)
