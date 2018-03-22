@@ -44,3 +44,10 @@ span, footer{
 footer{
     background: #299c29;
 }
+.Tournament, p{
+    text-align: center;
+}
+.jumbotron{
+    background: url("http://pluspng.com/img-png/sky-png-black-and-white-might-magic-heroes-online-home-page-1261.png") no-repeat center;
+    padding:0;
+}

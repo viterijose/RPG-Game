@@ -19,9 +19,19 @@
 
 <body>
     <div class="container">
+        <audio id="transform" src="./assets/javascript/Transform.mp3"></audio>
+        <audio id="teleport" src="./assets/javascript/Teleport.mp3"></audio>
+        <audio id="punch" src="./assets/javascript/Punch.mp3"></audio>
+        <audio id="loose" src="./assets/javascript/loose_life.mp3"></audio>
+        <audio id="battle" src="./assets/javascript/Battle_theme.mp3"></audio>
+        <audio id="welcome" src="./assets/javascript/Welcome.mp3"></audio>
         <div class="row">
             <div class="col-xs-12">
-                <!-- insert jumbotron -->
+                <div class="jumbotron">
+                    <h1 class = "Tournament">Cells Tournament RPG!!</h1>
+                    <p>Choose a character and move up the ladder to see the transformations!</p>
+                    <hr>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -37,7 +47,7 @@
 
             </div>
         </div>
-
+        <h1>Your Enemies</h1>
         <button class="attack">Attack</button>
 
         <div class="row">
@@ -46,9 +56,13 @@
 
             </div>
         </div>
-
+        <h1>Your Oponent</h1>
         <button class="restart">Restart</button>
-
+        <div class="progress">
+                <div class="progress-bar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                  <!--  put health of character --> 
+                </div>
+              </div>
 
 
     </div>

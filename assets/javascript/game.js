@@ -14,74 +14,121 @@ window.onload = function () {//window loads
     var characters = [
         goku = {
             name: "Goku",
-            image: "assets/images/goku.png",
+            image: ["assets/images/goku.png", "assets/images/goku_2.png", "assets/images/goku_3.png"],
             attack: 8,
             counter: 25,
-            health: 100,
-            chosen: "1"
+            health: 110,
+            chosen: 1
         },
         vegeta = {
             name: "Vegeta",
-            image: "assets/images/vegeta.png",
+            image: ["assets/images/vegeta.png", "assets/images/vegeta_2.png", "assets/images/vegeta_3.png"],
             attack: 8,
             counter: 25,
             health: 120,
-            chosen: "2"
+            chosen: 2
         },
         frieza = {
             name: "Frieza",
-            image: "assets/images/frieza.png",
+            image: ["assets/images/frieza.png", "assets/images/frieza_2.png", "assets/images/frieza_3.png"],
             attack: 8,
             counter: 25,
             health: 150,
-            chosen: "3"
+            chosen: 3
         },
         cell = {
             name: "Cell",
-            image: "assets/images/Cell.png",
+            image: ["assets/images/Cell.png", "assets/images/cell_2.png", "assets/images/cell_3.png"],
             attack: 8,
             counter: 25,
             health: 180,
-            chosen: "4"
+            chosen: 4
         }
     ]
+    var audio_transform = document.getElementById("transform");
+    var audio_teleport = document.getElementById("teleport");
+    var audio_punch = document.getElementById("punch");
+    var audio_loose = document.getElementById("loose");
+    var audio_battle = document.getElementById("battle");
+    var audio_welcome = document.getElementById("welcome");
+    audio_welcome.play();
+    audio_battle.play();
 
-    for (var i = 0; i < characters.length; i++) {
-        var newButton = $("<button>")
-        newButton.addClass("character_choose");
-        newButton.val(characters[i].health);
-        newButton.attr("data-health", characters[i].health);
-        var newDiv = $("<div>");
-        newDiv.text(characters[i].name);
-        var newImg = $("<img height = 200px width = 170px>");
-        newImg.attr("src", characters[i].image);//create another for loop to run through the image array
-        var newFooter = $("<footer>");
-        newFooter.text("Health :");
-        var newSpan = $("<span>");
-        newSpan.addClass(characters[i].chosen);
-        newSpan.text(characters[i].health);
+    function create() {
 
-        $(newButton).appendTo("#container_char");
-        $(newDiv).appendTo(newButton);
-        $(newImg).appendTo(newButton);
-        $(newSpan).appendTo(newFooter);
-        $(newFooter).appendTo(newButton);
+        for (var i = 0; i < characters.length; i++) {
+            var newButton = $("<button>")
+            newButton.addClass("character_choose");
+            newButton.val(characters[i].health);
+            var newDiv = $("<div>");
+            newDiv.text(characters[i].name);
+            var newImg = $("<img height = 200px width = 170px>");
+            newImg.attr("src", characters[i].image[0]);
+            var newFooter = $("<footer>");
+            newFooter.text("Health :");
+            var newSpan = $("<span>");
+            newSpan.addClass(characters[i].chosen);
+            newSpan.text(characters[i].health);
+
+            $(newButton).appendTo("#container_char");
+            $(newDiv).appendTo(newButton);
+            $(newImg).appendTo(newButton);
+            $(newSpan).appendTo(newFooter);
+            $(newFooter).appendTo(newButton);
+        }
+
     }
+    create();
 
     function restart() {
+        $("#container_choose").empty();
+        $("#container_oponent").empty();
+        $("#container_char").empty();
+        create();
     }
+    $(".restart").on("click", function(){
+        restart();
+    })
     function gameover() {
+        audio_loose.play();
         alert("YOU LOOSE!!");
     }
     function next() {
         isOponentChosen = false;
         $("#container_oponent").empty();
         wins++;
-        if(wins == 1){ //get character image, erase src, put new src for transformation
-            $(".character_chosen").find("img").attr("src", "https://pre00.deviantart.net/502c/th/pre/f/2017/039/7/9/super_saiyan_goku_2_by_brusselthesaiyan-daydfdy.png");//make for every character
+        var char_chosen = $(".character_chosen").val();
+        audio_transform.play();
+
+        if (wins == 1) {
+
+            if (char_chosen == 110) {
+                $(".character_chosen").find("img").attr("src", characters[0].image[wins]);//make for every character
+            }
+            if (char_chosen == 120) {
+                $(".character_chosen").find("img").attr("src", characters[1].image[wins]);//make for every character
+            }
+            if (char_chosen == 150) {
+                $(".character_chosen").find("img").attr("src", characters[2].image[wins]);//make for every character
+            }
+            if (char_chosen == 180) {
+                $(".character_chosen").find("img").attr("src", characters[3].image[wins]);//make for every character
+            }
         }
-        if(wins == 2){
-            $(".character_chosen").find("img").attr("src", "https://vignette.wikia.nocookie.net/vsbattles/images/4/48/Goku_ssj2_by_spongeboss-d3np2hm.png/revision/latest?cb=20150428060108");
+        if (wins == 2) {
+
+            if (char_chosen == 110) {
+                $(".character_chosen").find("img").attr("src", characters[0].image[wins]);//make for every character
+            }
+            if (char_chosen == 120) {
+                $(".character_chosen").find("img").attr("src", characters[1].image[wins]);//make for every character
+            }
+            if (char_chosen == 150) {
+                $(".character_chosen").find("img").attr("src", characters[2].image[wins]);//make for every character
+            }
+            if (char_chosen == 180) {
+                $(".character_chosen").find("img").attr("src", characters[3].image[wins]);//make for every character
+            }
         }
         if (wins <= 1) {
             current_attack_power = 8 * count;
@@ -93,6 +140,7 @@ window.onload = function () {//window loads
     }
 
     $(".character_choose").on("click", function () {
+        audio_teleport.play();
         console.log($(this).data("health"));
         if (isCharacterChosen === false) {
             $(".character_choose").appendTo("#container_choose");
@@ -114,19 +162,20 @@ window.onload = function () {//window loads
                 $(this).addClass("character_oponent");
                 $(this).find("span").removeClass();
                 $(this).find("span").addClass("Oponent");
-                
+
                 isOponentChosen = true;
             }
         })
     })
 
     function attack() {
+        audio_punch.play();
         console.log("counter :" + count);
         health_oponent = $(".character_oponent").val();
 
         for (var k = 1; k <= count; k++) {
             if (wins == 0) {
-                attack_power = 8 * k; 
+                attack_power = 8 * k;
                 health_oponent = health_oponent - attack_power;
             } else {
                 attack_power = current_attack_power + 8 * k;
@@ -134,28 +183,27 @@ window.onload = function () {//window loads
             }
         }
         console.log("current health of oponent:" + health_oponent);
-        counter = 10 ;
+        counter = 10;
         console.log("health chosen:" + health_chosen);
         health_chosen = health_chosen - counter;
         console.log("health after counter:" + health_chosen);
         $(".Chosen").text(health_chosen);
         $(".Oponent").text(health_oponent);
 
-        if (health_chosen <= 0) {
-            gameover();
-        } else if (health_oponent <= 0) {
+        if (health_oponent <= 0) {
             alert("NEXT CHARACTER");
             next();
+        } else if (health_chosen <= 0) {
+            gameover();
         }
-        if (wins == 3){
+        if (wins == 3) {
             alert("YOU WON!!");
         }
     }
     $(".attack").on("click", function () {
-        if(isOponentChosen===true){
-        count++;
-        console.log(count);
-        attack();
+        if (isOponentChosen === true) {
+            count++;
+            attack();
         }
     })
 
