@@ -50,10 +50,11 @@ window.onload = function () {//window loads
         var newButton = $("<button>")
         newButton.addClass("character_choose");
         newButton.val(characters[i].health);
+        newButton.attr("data-health", characters[i].health);
         var newDiv = $("<div>");
         newDiv.text(characters[i].name);
         var newImg = $("<img height = 200px width = 170px>");
-        newImg.attr("src", characters[i].image);
+        newImg.attr("src", characters[i].image);//create another for loop to run through the image array
         var newFooter = $("<footer>");
         newFooter.text("Health :");
         var newSpan = $("<span>");
@@ -66,7 +67,6 @@ window.onload = function () {//window loads
         $(newSpan).appendTo(newFooter);
         $(newFooter).appendTo(newButton);
     }
-
 
     function restart() {
     }
@@ -93,6 +93,7 @@ window.onload = function () {//window loads
     }
 
     $(".character_choose").on("click", function () {
+        console.log($(this).data("health"));
         if (isCharacterChosen === false) {
             $(".character_choose").appendTo("#container_choose");
             $(".character_choose").addClass("character_enemy");
@@ -152,7 +153,6 @@ window.onload = function () {//window loads
     }
     $(".attack").on("click", function () {
         if(isOponentChosen===true){
-
         count++;
         console.log(count);
         attack();
