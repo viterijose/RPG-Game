@@ -207,5 +207,11 @@ window.onload = function () {//window loads
         }
     })
 
+    // health = 100
+
+    // $("#test").on("click", function(){
+    //     $("#pbar").css("width",(health-25)+"%")
+    //     health = health-25;
+    // })
 
 }
